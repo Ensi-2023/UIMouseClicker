@@ -1,0 +1,175 @@
+﻿<Window x:Class="UIMouseAndKeyClicker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UIMouseAndKeyClicker"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        Unloaded="Window_Unloaded"
+        Loaded="Window_Loaded"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="Seqoe UI Light"
+        Title="Кликер" Width="350"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Normal"
+        Height="210">
+    <Grid>
+     
+        <tb:TaskbarIcon Visibility="Visible" 
+                        Name="taskIcon"
+                        
+                        IconSource="Image\MainIcon.ico"
+                        TrayLeftMouseDown="taskIcon_TrayLeftMouseDown"
+                        PopupActivation="RightClick"
+                        >
+            <tb:TaskbarIcon.TrayPopup>
+                <Grid Margin="10">
+
+                    <Border Margin="10" Background="#FF1F1F1F"
+                CornerRadius="5">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="1"/>
+                        </Border.Effect>
+                    </Border>
+
+                    <Border Margin="11" Background="#FF1F1F1F"
+                CornerRadius="5">
+                        <Button Content="Выйти" Click="Button_Click"/>
+
+                    </Border>
+               </Grid>
+            </tb:TaskbarIcon.TrayPopup>
+        </tb:TaskbarIcon>
+
+
+
+        <Border Margin="10" Background="#FF1F1F1F"
+                CornerRadius="5">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="1"/>
+            </Border.Effect>
+        </Border>
+
+        <Border Margin="11" Background="#FF1F1F1F"
+                CornerRadius="5">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Background="Transparent"
+                      MouseLeftButtonDown="Grid_MouseLeftButtonDown"
+                      Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Кликер" Opacity=".8"
+                               FontSize="18"
+                               Margin="10 0 0 0"
+                               Foreground="White" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Column="1"
+                            >
+
+
+                        <Button HorizontalAlignment="Right"
+                            Width="30"
+                            Height="30" Click="Button_Click_2"
+                            >
+                            <Grid>
+                                <Image  Opacity=".7" Source="Image\sett3.png"
+                                       />
+                            </Grid>
+                        </Button>
+
+                        <Button HorizontalAlignment="Right"
+                            Width="30" 
+                            Height="30" Click="Button_Click_1"
+                            >
+                            <Grid>
+                                <TextBlock Text="-"
+                                           FontSize="17"
+                                           FontWeight="Bold"/>
+                            </Grid>
+                        </Button>
+
+                        <Button  HorizontalAlignment="Right"
+                            Width="30"
+                            Height="30" Click="Button_Click"
+                           Content="x" >
+                      </Button>
+
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Row="1"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Активность: "
+                               FontSize="18" Opacity=".8"
+                               Foreground="White"/>
+
+
+                    <TextBlock Text="Не активен"
+                               Margin="10 0 0 0"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               FontSize="18"
+                               Name="status"
+                               Foreground="Red"/>
+
+                </Grid>
+
+
+
+
+                <Grid Grid.Row="2">
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                        <TextBlock Text="Активация на кнопку: "
+                           Grid.Row="2"
+                           FontSize="14" 
+                           Foreground="White"
+                            VerticalAlignment="Center"
+                           Opacity=".3"/>
+
+                        <TextBlock Text="F6"
+                           Grid.Row="2"
+                           Margin="5 0 0 0"
+                           FontSize="15" 
+                           Name="keyActive"
+                           Foreground="White"
+                            VerticalAlignment="Center"
+                           Opacity=".9"/>
+
+
+                        <Button Name="switchButton"  Click="switchButton_Click" Margin="10 0 0 0" Content="сменить" VerticalAlignment="Center"/>
+
+                    </StackPanel>
+                    
+           
+
+
+                </Grid>
+                
+
+
+
+            </Grid>
+        </Border>
+
+   </Grid>
+</Window>

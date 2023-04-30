@@ -1,0 +1,78 @@
+﻿<Window x:Class="UIMouseAndKeyClicker.wind.w_SwitchKey"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UIMouseAndKeyClicker.wind"
+        mc:Ignorable="d"
+        Title="Смена кнопки активации" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="Seqoe UI Light"
+        Width="340"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        Unloaded="Window_Unloaded"
+        Height="200">
+        
+        
+    <Grid>
+        <Border Margin="10" Background="#FF1F1F1F"
+                CornerRadius="5">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="1"/>
+            </Border.Effect>
+        </Border>
+
+
+
+        <Border Margin="11" Background="#FF1F1F1F"
+                CornerRadius="5">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+
+                <Grid Grid.Row="0"
+                      Background="Transparent"
+                      MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                    <TextBlock Text="Смена кнопки активации"
+                               FontSize="18" Opacity=".8"
+                               Margin="10 0 0 0"
+                               Foreground="White" VerticalAlignment="Center"/>
+                    <Button Content="x" HorizontalAlignment="Right"
+                            Width="30"
+                            Height="30" Click="Button_Click"
+                            />
+                </Grid>
+                
+        
+
+
+                <Grid Grid.Row="1">
+                    <TextBlock Text="Ожидаю нажатия..." HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Name="newkey"
+                               FontSize="15"
+                               Foreground="White"/>
+                </Grid>
+                
+                
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
+                    <Button Content="Сохранить"
+                            Background="#FF5F985F"
+                            Padding="5"
+                            Name="saveButton"
+                            Visibility="Collapsed"
+                            Click="Button_Click_1"/>
+                    <Button Content="Отмена" Click="Button_Click"/>
+                </StackPanel>
+                
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
