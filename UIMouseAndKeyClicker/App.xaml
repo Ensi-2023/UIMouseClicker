@@ -8,6 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Style\S_Button.xaml"/>
                 <ResourceDictionary Source="Style\S_RadioButton.xaml"/>
+                <ResourceDictionary Source="Style\S_Combo.xaml"/>
+                <ResourceDictionary Source="Style\S_TextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

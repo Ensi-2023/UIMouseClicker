@@ -10,11 +10,12 @@
         AllowsTransparency="True"
         Background="Transparent"
         FontFamily="Seqoe UI Light"
-        Width="360"
+        Width="380"
         WindowStartupLocation="CenterScreen"
         Topmost="True"
-
-        Height="230">
+        KeyDown="Window_KeyDown"
+        Height="560"
+        Cursor="">
 
 
     <Grid>
@@ -32,7 +33,10 @@
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
@@ -52,15 +56,33 @@
 
 
 
+                <TextBlock Text="Общие"
+                               FontSize="14" Opacity=".8"
+                               Margin="10 10 0 0"
+                           Grid.Row="1"
+                               Foreground="White" VerticalAlignment="Center"/>
 
-                <Grid Grid.Row="1" Margin="10">
+            
+
+                <Grid Grid.Row="2" Margin="10">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="150"/>
+                   
                     </Grid.ColumnDefinitions>
+
+
+
+                    <Border BorderThickness="1" Width="1" 
+                            BorderBrush="#0AFFFFFF"
+                        Margin="3" Grid.Column="1" Grid.RowSpan="7"/>
+
 
 
                     <TextBlock Text="Воспроизводить звуки активации" TextWrapping="Wrap" Grid.Column="0"
@@ -68,16 +90,211 @@
                                FontSize="16"
                                Foreground="White"/>
 
-                    <StackPanel Orientation="Horizontal"
-                                Grid.Row="0"
-                                Grid.Column="1">
-                        <RadioButton Name="v1" Uid="1" Content="Да" Width="50"  Checked="RadioButton_Checked"/>
-                        <RadioButton Name="v2" Uid="2" Content="Нет" Width="50" Checked="RadioButton_Checked"/>
-                    </StackPanel>
-                    
+
+                    <Grid Grid.Row="0" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+
+
+                        <RadioButton Grid.Column="0" Name="v1" Uid="1" Content="Да"  Checked="RadioButton_Checked"/>
+                        <RadioButton Grid.Column="1" Name="v2" Uid="2" Content="Нет"  Checked="RadioButton_Checked"/>
+
+                    </Grid>
+
+
+
+                    <TextBlock  Text="При старте сворачивать в трей" TextWrapping="Wrap" Grid.Column="0"
+                               Grid.Row="1" VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+
+
+                    <Grid Grid.Row="1" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+
+
+                        <RadioButton Grid.Column="0" Name="v7" Uid="7" Content="Да"   Checked="RadioButton_Checked"/>
+                        <RadioButton Grid.Column="1" Name="v8" Uid="8" Content="Нет" IsChecked="True" Checked="RadioButton_Checked"/>
+                    </Grid>
+
+
+
+                    <TextBlock Text="Активация на кнопку" TextWrapping="Wrap" Grid.Column="0"
+                               Grid.Row="2" VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+
+
+                    <Grid Grid.Row="2" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Text="F6"
+                           Grid.Column="0" HorizontalAlignment="Center"
+                           Margin="5 5 0 0"
+                           FontSize="15" 
+                           Name="keyActive"
+                           Foreground="#FFB7FBA4"
+                           FontStretch="Expanded"
+                           FontWeight="Bold" VerticalAlignment="Center"
+                          
+                           Opacity=".9"/>
+
+
+                        <Button Grid.Column="1" 
+                                Name="switchButton" 
+                                Height="40" Width="80" 
+                                Click="switchButton_Click"
+                                Margin="5 5 4 0" Content="Cменить"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Foreground="White"
+                                Background="#FF4C9E45"/>
+
+
+                    </Grid>
+
+
+
                 </Grid>
 
 
+
+                <TextBlock Text="Мышка"
+                               FontSize="14" Opacity=".8"
+                               Margin="10 0 0 0"
+                           Grid.Row="3"
+                               Foreground="White" VerticalAlignment="Center"/>
+
+
+                
+
+                <Grid Grid.Row="4" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Border BorderThickness="1" Width="1" 
+                            BorderBrush="#0AFFFFFF"
+                        Margin="3" Grid.Column="1" Grid.RowSpan="7"/>
+
+
+                    <TextBlock  Text="Использовать просто зажатие кнопки" TextWrapping="Wrap" Grid.Column="0"
+                               Grid.Row="0" VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+
+
+                    <Grid Grid.Row="0" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+
+
+                        <RadioButton Grid.Column="0" Name="v3" Uid="3" Content="Да"  Checked="RadioButton_Checked"/>
+                        <RadioButton Grid.Column="1" Name="v4" Uid="4" Content="Нет"  Checked="RadioButton_Checked"/>
+                    </Grid>
+
+
+                    <TextBlock Text="Кнопка мышки" TextWrapping="Wrap" Grid.Column="0"
+                               Grid.Row="1" VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+
+                    <ComboBox Height="40"  Style="{DynamicResource ComboBoxFlatStyle}" Name="combo" Grid.Column="2" Grid.Row="1" IsEditable="False" SelectionChanged="ComboBox_SelectionChanged">
+                        <ComboBoxItem>Левая</ComboBoxItem>
+                        <ComboBoxItem>Правая</ComboBoxItem>
+                        <ComboBoxItem>Центральная</ComboBoxItem>
+                    </ComboBox>
+
+
+
+                    <TextBlock Text="Имитация движения мышки" TextWrapping="Wrap" Grid.Column="0"
+                               Grid.Row="2" VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="White"/>
+
+
+                    <Grid Grid.Row="2" Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Grid.Column="0" Name="v5" Uid="5" Content="Да" Checked="RadioButton_Checked"/>
+                        <RadioButton Grid.Column="1" Name="v6" Uid="6" Content="Нет"  Checked="RadioButton_Checked"/>
+                    </Grid>
+
+
+                    <Grid Grid.Row="3" Grid.ColumnSpan="3"
+                          Name="mouseMoveSetting">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Как быстро двигаем курсор" TextWrapping="Wrap" Grid.Column="0"
+                               Grid.Row="3" VerticalAlignment="Center"
+                               FontSize="16" Margin="0 0 10 0"
+                               Foreground="White"/>
+
+                        <TextBox Grid.Column="2" 
+                                 Name="speedCursor" Style="{StaticResource PS_TextStyle}"
+                                 TextChanged="speedCursor_TextChanged"
+                                 KeyDown="TextBox_KeyDown"/>
+                    </Grid>
+
+
+
+                    <Grid Grid.Row="4" Grid.ColumnSpan="3"
+                          Name="updateSetting">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Интвервал обновления" TextWrapping="Wrap" Grid.Column="0"
+                               Grid.Row="3" VerticalAlignment="Center"
+                               FontSize="16" Margin="0 0 6 0"
+                               Foreground="White"/>
+
+                        <TextBox Grid.Column="2" 
+                                 Name="updateThread"  Style="{StaticResource MS_TextStyle}"
+                                 TextChanged="updateThread_TextChanged"
+                                 KeyDown="TextBox_KeyDown"/>
+                     
+
+                    </Grid>
+
+
+                </Grid>
+                
 
             </Grid>
         </Border>

@@ -22,6 +22,9 @@ using System.Xml.Linq;
 using System.Globalization;
 using static System.Windows.Forms.DataFormats;
 using System.Threading;
+using static UIMouseAndKeyClicker.MouseEvent;
+using System.Windows.Forms;
+using System.Reflection.Metadata;
 
 namespace UIMouseAndKeyClicker
 {
@@ -36,7 +39,8 @@ namespace UIMouseAndKeyClicker
         private Key KeyActive = Key.None;
         private Key KeyPressed = Key.None;
  
-        static public MainWindow Instance;
+        static public MainWindow Instance { get { return _instance; } }
+        static private MainWindow _instance { set; get; }
 
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
@@ -47,7 +51,9 @@ namespace UIMouseAndKeyClicker
         public MainWindow()
         {
             InitializeComponent();
-           Instance = this;              
+            _instance = this;              
+
+            
         }
 
         public void SetKey(Key _keyActive, Key _keyPressed)
@@ -66,6 +72,11 @@ namespace UIMouseAndKeyClicker
         }
         private void Tray()
         {
+            if ((bool)Settings.Default["MinimizeStart"]==false)
+            {
+               return;
+            }
+            
             this.Hide();
         }
 
@@ -100,6 +111,11 @@ namespace UIMouseAndKeyClicker
         {
             if (isSettingOpen) return;
             var obj = Settings.Default["Sound"];
+            var obj2 = Settings.Default["SingleClick"];
+            var obj3 = Settings.Default["MouseMove"];
+         
+            var obj4 = Settings.Default["SpeedCursor"].ToString().Length>0?int.Parse(Settings.Default["SpeedCursor"].ToString()):5;
+            var obj5 = Settings.Default["UpdateThread"].ToString().Length>0?int.Parse(Settings.Default["UpdateThread"].ToString()):80;
             taskIcon.HideBalloonTip();
 
             if (IsStart)
@@ -121,32 +137,52 @@ namespace UIMouseAndKeyClicker
          
                 status.Foreground = Brushes.LimeGreen;
                 switchButton.IsEnabled= false;
-                Start();
+                Start((bool)obj2,(bool)obj3, obj4, obj5);
                 if ((bool)obj) System.Media.SystemSounds.Exclamation.Play();
                 return;
             }
 
         }
 
-        private void Start()
+        public ButtomEnum ReturnButtom()
+        {
+
+            var obj = Settings.Default["IntexMouseButton"];
+            switch ((int)obj) 
+            {
+                case 1: return ButtomEnum.left;
+                case 2: return ButtomEnum.right;
+                case 3: return ButtomEnum.middle;
+                    
+            }
+
+            return ButtomEnum.left;
+           
+        }
+
+   
+
+
+        private void Start(bool issingle = false,bool mousemove=false,int speedCursor=4,int updateThread = 80)
         {
 
             IsStart = true;
-
             Task.Factory.StartNew(async () => 
             {
                 while (IsStart)
                 {
                     Random rnd = new Random();
-                    _mouseEvent.Click();
+                    _mouseEvent.Click(issingle, ReturnButtom());
+                    if(mousemove) _mouseEvent.Move(speedCursor, updateThread);
                     await Task.Delay(rnd.Next(50,250));
                 }
             });
         }
 
         private void Stop()
-        {
+       { 
             IsStart = false;
+            _mouseEvent.Stop();
         }
 
 
@@ -199,8 +235,6 @@ namespace UIMouseAndKeyClicker
                 Settings.Default["KeyActive"] = (int)KeyActive;
                 Settings.Default.Save();
 
-
-
                 keyActive.Text = KeyActive.ToString();
             }
 
@@ -221,9 +255,24 @@ namespace UIMouseAndKeyClicker
             _hookID = SetHook(_proc);
         }
 
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var wind = new w_Setting();
+            wind.ShowDialog();
 
 
+        }
 
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+
+                taskIcon.ShowBalloonTip("", $"Я тут!", Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Info);
+                WindowState = WindowState.Minimized;
+                this.Hide();
+            }
+        }
 
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -238,12 +287,6 @@ namespace UIMouseAndKeyClicker
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            var wind = new w_Setting();
-            wind.ShowDialog();
-
-
-        }
+       
     }
 }
